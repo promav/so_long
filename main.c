@@ -1,12 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <MLX42/include/MLX42/MLX42.h>
-
-#define WIDTH 1640
-#define HEIGHT 1360
+#include "so_long.h"
 
 static mlx_image_t     **img;
+static int  p = 0;
+static int  a = 0;
+static int  b = 0;
+
 
 static void error(void)
 {
@@ -17,7 +15,9 @@ static void error(void)
 mlx_texture_t **ft_load_textures()
 {
     mlx_texture_t   **texture;
+    int i;
 
+    i = 0;
     texture = malloc(12*sizeof(mlx_texture_t *));
     texture[0] = mlx_load_png("./Gohan/GohanD0.png");
     texture[1] = mlx_load_png("./Gohan/GohanD1.png");
@@ -31,102 +31,133 @@ mlx_texture_t **ft_load_textures()
     texture[9] = mlx_load_png("./Gohan/GohanU0.png");
     texture[10] = mlx_load_png("./Gohan/GohanU1.png");
     texture[11] = mlx_load_png("./Gohan/GohanU2.png");
-    if(!texture[0])
-        error();
+    while(i < 12)
+    {
+        if(!texture[i])
+            error();
+        i++;
+    }
     return (texture);
 }
 
-mlx_image_t **ft_load_imgs(mlx_t *mlx, mlx_texture_t **texture)
+mlx_image_t **ft_load_imgs(t_p **vars)
 {
     int i;
 
     i = 0;
-    img = malloc(12*sizeof(mlx_image_t *));
+    (*vars)->img = malloc(12*sizeof(mlx_image_t *));
     while(i < 12)
     {
-        img[i] = mlx_texture_to_image(mlx, texture[i]);
-        if(!img[i])
+        (*vars)->img[i] = mlx_texture_to_image((*vars)->mlx, (*vars)->texture[i]);
+        if(!(*vars)->img[i])
             error();
         i++;
     }
-    return (img);
+    return ((*vars)->img);
 }
 void    ft_hook(void* param)
 {
     mlx_t *mlx = param;
-    int a;
-    int b;
-
+    
     if(mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
         mlx_close_window(mlx);
-    else if(mlx_is_key_down(mlx, MLX_KEY_UP) && img[0]->instances[0].y > 0)
-        img[0]->instances[0].y -= 5;
-    else if(mlx_is_key_down(mlx, MLX_KEY_DOWN) && img[0]->instances[0].y < 200)
-        img[0]->instances[0].y += 5;
-    else if(mlx_is_key_down(mlx, MLX_KEY_LEFT) && img[0]->instances[0].x > 0)
-        img[0]->instances[0].x -= 5;
-    else if(mlx_is_key_down(mlx, MLX_KEY_RIGHT) && img[0]->instances[0].x < 500)
+    else if(mlx_is_key_down(mlx, MLX_KEY_UP) && img[p]->instances[0].y > 0)
     {
-        if(img[0]->instances[0].x < 500)
+        if(p != 9)
         {
-            a = img[0]->instances[0].x;
-            b = img[0]->instances[0].y;
-            mlx_delete_image(mlx, img[0]);
-            if (mlx_image_to_window(mlx, img[6], a, b) < 0)
-            {
-                error();
-            }
+            a = img[p]->instances[0].x;
+            b = img[p]->instances[0].y;
+            img[p]->instances[0].x = -10000;
+            img[p]->instances[0].y = -10000;
+            p = 9;
+            img[p]->instances[0].x = a;
+            img[p]->instances[0].y = b;
         }
-        img[6]->instances[0].x += 5;
+        img[p]->instances[0].y -= 5;
+    }
+    else if(mlx_is_key_down(mlx, MLX_KEY_DOWN) && img[p]->instances[0].y < 200)
+    {
+        if(p != 0)
+        {
+            a = img[p]->instances[0].x;
+            b = img[p]->instances[0].y;
+            img[p]->instances[0].x = -10000;
+            img[p]->instances[0].y = -10000;
+            p = 0;
+            img[p]->instances[0].x = a;
+            img[p]->instances[0].y = b;
+        }
+        img[p]->instances[0].y += 5;
+    }
+    else if(mlx_is_key_down(mlx, MLX_KEY_LEFT) && img[p]->instances[0].x > 0)
+    {
+        if(p != 3)
+        {
+            a = img[p]->instances[0].x;
+            b = img[p]->instances[0].y;
+            img[p]->instances[0].x = -10000;
+            img[p]->instances[0].y = -10000;
+            p = 3;
+            img[p]->instances[0].x = a;
+            img[p]->instances[0].y = b;
+        }
+        img[p]->instances[0].x -= 5;
+    }
+    else if(mlx_is_key_down(mlx, MLX_KEY_RIGHT) && img[p]->instances[0].x < 500)
+    {
+        if(p != 6)
+        {
+            a = img[p]->instances[0].x;
+            b = img[p]->instances[0].y;
+            img[p]->instances[0].x = -10000;
+            img[p]->instances[0].y = -10000;
+            p = 6;
+            img[p]->instances[0].x = a;
+            img[p]->instances[0].y = b;
+        }
+        img[p]->instances[0].x += 5;
     }
 }
 
-void    ft_images_to_window(mlx_t *mlx, mlx_image_t **img)
+void    ft_images_to_window(t_p **vars)
 {
-    if(mlx_image_to_window(mlx, img[0], 0, 0) == -1)
+    int i;
+
+    i = 1;
+    if(mlx_image_to_window((*vars)->mlx, (*vars)->img[0], 0, 0) == -1)
         error();
-    /*if(mlx_image_to_window(mlx, img[1], 128, 0) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[2], 256, 0) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[3], 0, 128) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[4], 128, 128) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[5], 256, 128) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[6], 0, 256) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[7], 128, 256) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[8], 256, 256) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[9], 0, 384) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[10], 128, 384) == -1)
-        error();
-    if(mlx_image_to_window(mlx, img[11], 256, 384) == -1)
-        error();*/
+    while(i < 12)
+    {
+        if(mlx_image_to_window((*vars)->mlx, (*vars)->img[i], -10000, -10000) == -1)
+            error();
+        i++;
+    }
 }
 
 int32_t main(void)
 {
-    mlx_t           *mlx;
-    mlx_texture_t   **texture;
-       
-    texture = NULL;
+    t_p *vars;
+    int i;
+    mlx_t *mlx;
+    
+    i = 0;
     mlx = mlx_init(WIDTH, HEIGHT, "So_long", false);
+    vars->mlx = mlx;
     if (!mlx)
         error();
-    texture = ft_load_textures();
-    img = ft_load_imgs(mlx, texture);
-    ft_images_to_window(mlx, img);
-    mlx_loop_hook(mlx, ft_hook, mlx);
+    vars->texture = ft_load_textures();
+    img = ft_load_imgs(&vars);
+    ft_images_to_window(&vars);
+    mlx_loop_hook(vars->mlx, ft_hook, vars);
     mlx_loop(mlx);
-    mlx_delete_image(mlx, img[0]);
-    mlx_delete_texture(texture[0]);
-    free(texture);
-    free(img);
+    while(i < 12)
+    {
+        mlx_delete_image(mlx, vars->img[p]);
+        mlx_delete_texture(vars->texture[p]);
+        i++;
+    }
+    free(vars->texture);
+    free(vars->img);
     mlx_terminate(mlx);
     return (EXIT_SUCCESS);
 }
