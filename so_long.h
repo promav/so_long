@@ -6,8 +6,9 @@
 #include <stdbool.h>
 #include <MLX42/include/MLX42/MLX42.h>
 
-#define WIDTH 1640
-#define HEIGHT 1360
+#define WIDTH 1920
+#define HEIGHT 1280
+#define DELAY 10
 
 typedef struct parameters
 {
@@ -17,6 +18,8 @@ typedef struct parameters
     int                 p;
     int                 a;
     int                 b;
+    int                 step;
+    int                 speed;
     struct parameters   *next;
 }   t_p;
 
