@@ -6,8 +6,8 @@ LIBFT_LIB = $(LIBFT_DIR)/libft/libft.a
 INCLUDES = -I./libft/libs -I./ -I$(MLX42)/include
 LIBS = -L$(MLX42)/lib -lmlx42 -lglfw -ldl -lm -lpthread -L$(LIBFT) -lft
 
-MAIN = main.c
-EXEC = test
+MAIN = main.c init.c moves1.c moves2.c end.c
+EXEC = so_long
 
 all: $(LIBFT_LIB) $(EXEC)
 
