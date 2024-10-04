@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:24:25 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 17:44:11 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:24:22 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,30 @@ void	error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_loading_all(t_p **vars, char **files, t_map map_coor)
+void	ft_loading_all(t_p *vars, char **files, t_map map_coor)
 {
-	(*vars)->texture = ft_load_textures(files);
-	(*vars)->imgd = ft_load_imgs_din(vars);
-	(*vars)->imge = ft_load_imgs_est(vars);
-	ft_images_to_window(vars, map_coor);
+	vars->texture = ft_load_textures(files);
+	vars->imgd = ft_load_imgs_din(&vars);
+	vars->imge = ft_load_imgs_est(&vars);
+	ft_images_to_window(&vars, map_coor);
+}
+
+void	ft_free_files(char **files)
+{
+	int	i;
+
+	i = 0;
+	while (i < 12)
+	{
+		free(files[i]);
+		i++;
+	}
+	free(files);
 }
 
 int32_t	main(int argc, char **argv)
 {
-	t_p		*vars;
+	t_p		vars;
 	mlx_t	*mlx;
 	char	**files;
 	t_map	map_coor;
@@ -42,13 +55,11 @@ int32_t	main(int argc, char **argv)
 	map_coor.rows * 128, "So_long", true);
 	if (!mlx)
 		error();
-	vars->mlx = mlx;
+	vars.mlx = mlx;
 	files = file_names();
 	ft_loading_all(&vars, files, map_coor);
-	mlx_loop_hook(mlx, ft_hook, vars);
+	ft_free_files(files);
+	mlx_loop_hook(mlx, ft_hook, &vars);
 	mlx_loop(mlx);
-	ending_game(mlx, &vars, files);
-	mlx_close_window(mlx);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+	ending_game(mlx, &vars);
 }

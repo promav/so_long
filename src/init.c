@@ -6,31 +6,27 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:24:08 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 18:13:47 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:08:05 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_p	*init_vars(void)
+t_p	init_vars(void)
 {
-	t_p	*vars;
+	t_p	vars;
 
-	vars = (t_p *)malloc(sizeof(t_p));
-	if (!vars)
-		exit (EXIT_FAILURE);
-	vars->mlx = NULL;
-	vars->map = NULL;
-	vars->texture = NULL;
-	vars->imgd = NULL;
-	vars->imge = NULL;
-	vars->p = 0;
-	vars->open_door = 0;
-	vars->x = 0;
-	vars->y = 0;
-	vars->step = 0;
-	vars->speed = 0;
-	vars->next = NULL;
+	vars.mlx = NULL;
+	vars.map = NULL;
+	vars.texture = NULL;
+	vars.imgd = NULL;
+	vars.imge = NULL;
+	vars.p = 0;
+	vars.open_door = 0;
+	vars.x = 0;
+	vars.y = 0;
+	vars.step = 0;
+	vars.speed = 0;
 	return (vars);
 }
 

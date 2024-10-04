@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:54:22 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 17:18:10 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:18:49 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_hook(void *param)
 
 	vars = param;
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
-		return ;
+		ending_game(vars->mlx, vars);
 	else if (mlx_is_key_down(vars->mlx, MLX_KEY_UP) \
 	&& vars->map[vars->imgd[vars->p]->instances[0].y / 128 - 1] \
 	[vars->imgd[vars->p]->instances[0].x / 128] != '1')
