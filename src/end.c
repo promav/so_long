@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:15:53 by pabromer          #+#    #+#             */
-/*   Updated: 2024/09/27 15:27:02 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:14:16 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ending_game(mlx_t *mlx, t_p **vars, char **files)
 		i++;
 	}
 	j = 0;
-	while (i < 4)
+	while (j < 5)
 	{
 		mlx_delete_image(mlx, (*vars)->imge[j]);
 		mlx_delete_texture((*vars)->texture[i]);
@@ -37,4 +37,6 @@ void	ending_game(mlx_t *mlx, t_p **vars, char **files)
 	free((*vars)->texture);
 	free((*vars)->imgd);
 	free((*vars)->imge);
+	ft_free_map((*vars)->map);
+	free((*vars));
 }
