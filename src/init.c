@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:24:08 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 19:08:05 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:38:28 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	**file_names(void)
 
 	i = 0;
 	names = (char **)malloc(12 * sizeof(char *));
+	if (!names)
+		return (NULL);
 	while (i < 12)
 	{
 		num = ft_itoa(i);
@@ -58,6 +60,8 @@ mlx_texture_t	**ft_load_textures(char **names)
 
 	i = 0;
 	texture = (mlx_texture_t **)malloc(17 * sizeof(mlx_texture_t *));
+	if (!texture)
+		return (NULL);
 	while (i < 12)
 	{
 		texture[i] = mlx_load_png(names[i]);
@@ -80,6 +84,8 @@ mlx_texture_t	**ft_load_textures(char **names)
 mlx_image_t	**ft_load_imgs_est(t_p **vars)
 {
 	(*vars)->imge = malloc(5 * sizeof(mlx_image_t *));
+	if (!(*vars)->imge)
+		return (NULL);
 	(*vars)->imge[0] = mlx_texture_to_image((*vars)->mlx, (*vars)->texture[12]);
 	(*vars)->imge[1] = mlx_texture_to_image((*vars)->mlx, (*vars)->texture[13]);
 	(*vars)->imge[2] = mlx_texture_to_image((*vars)->mlx, (*vars)->texture[14]);
@@ -96,6 +102,8 @@ mlx_image_t	**ft_load_imgs_din(t_p **vars)
 
 	i = 0;
 	(*vars)->imgd = malloc(12 * sizeof(mlx_image_t *));
+	if (!(*vars)->imgd)
+		return (NULL);
 	while (i < 12)
 	{
 		(*vars)->imgd[i] = mlx_texture_to_image \

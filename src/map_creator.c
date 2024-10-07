@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:15:17 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 19:12:55 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:59:20 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	ft_create_map(t_p **vars, int r, char **argv)
 
 	i = r;
 	(*vars)->map = (char **)malloc((1 + i) * sizeof(char *));
+	if (!(*vars)->map)
+		return (-1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (-1);
@@ -80,8 +82,8 @@ t_map	map_init(t_p *vars, char **argv)
 
 	rows = ft_count_rows(argv);
 	ft_create_map(&vars, rows, argv);
-	flood_fill(rows);
-	if (map_checker(&vars, rows) == -1)
+	flood_fill(rows, argv);
+	if (map_checker(&vars, rows, argv) == -1)
 	{
 		if (ft_count_rows(argv) == rows)
 		{

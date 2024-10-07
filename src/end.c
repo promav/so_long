@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:15:53 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 19:22:26 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:24:26 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,16 @@ void	ending_game(mlx_t *mlx, t_p *vars)
 	mlx_close_window(mlx);
 	mlx_terminate(mlx);
 	exit (EXIT_SUCCESS);
+}
+
+void	ft_crossing_door(t_p *vars)
+{
+	if (vars->imgd[vars->p]->instances[0].x == \
+	vars->imge[3]->instances[0].x \
+	&& (vars->imgd[vars->p]->instances[0].y == \
+	vars->imge[3]->instances[0].y))
+	{
+		ft_printf("Congrats! You finish the game successfully!");
+		ending_game(vars->mlx, vars);
+	}
 }

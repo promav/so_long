@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:25:12 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 18:47:44 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:12:06 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ void	ft_images_to_window(t_p **vars, t_map map_coor)
 	ft_wall(vars);
 	(*vars)->n_colec = map_coor.n_colec;
 	(*vars)->left_colec = map_coor.n_colec;
+	if (mlx_image_to_window((*vars)->mlx, (*vars)->imge[2], \
+	map_coor.e_x * 128, map_coor.e_y * 128) == -1)
+		error();
+	if (mlx_image_to_window((*vars)->mlx, (*vars)->imge[3], -500, -500) == -1)
+		error();
 	ft_charactec(vars, map_coor);
 	i = 0;
 	while (i < map_coor.n_colec)
@@ -95,9 +100,4 @@ void	ft_images_to_window(t_p **vars, t_map map_coor)
 	}
 	free(map_coor.c_x);
 	free(map_coor.c_y);
-	if (mlx_image_to_window((*vars)->mlx, (*vars)->imge[2], \
-	map_coor.e_x * 128, map_coor.e_y * 128) == -1)
-		error();
-	if (mlx_image_to_window((*vars)->mlx, (*vars)->imge[3], -500, -500) == -1)
-		error();
 }

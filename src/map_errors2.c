@@ -6,13 +6,13 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:15:17 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 17:10:33 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:05:31 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	map_checker(t_p **vars, int rows)
+int	map_checker(t_p **vars, int rows, char **argv)
 {
 	if (ft_is_rectangular((*vars)->map) == -1)
 		ft_printf("Error: The map is not a rectangle.\n");
@@ -22,18 +22,18 @@ int	map_checker(t_p **vars, int rows)
 		ft_printf("Error: The map has not allowed elements.\n");
 	if (ft_number_of_elements((*vars)->map) == -1)
 		ft_printf("Error: The number of allowed elements is not correct.\n");
-	if (flood_fill(rows) == -1)
+	if (flood_fill(rows, argv) == -1)
 		ft_printf("Error: The map could not be solve.\n");
 	if (ft_is_rectangular((*vars)->map) == 0 \
 	&& ft_borders_are_wall((*vars)->map) == 0 \
 	&& ft_allowed_elements((*vars)->map) == 0 \
 	&& ft_number_of_elements((*vars)->map) == 0 \
-	&& flood_fill(rows) == 0)
+	&& flood_fill(rows, argv) == 0)
 		return (0);
 	return (-1);
 }
 
-char	**ft_copy_map(int rows)
+char	**ft_copy_map(int rows, char **argv)
 {
 	int		fd;
 	int		i;
@@ -42,7 +42,9 @@ char	**ft_copy_map(int rows)
 
 	i = rows;
 	map2 = (char **)malloc((1 + i) * sizeof(char *));
-	fd = open("maps/map.br", O_RDONLY);
+	if (!map2)
+		return (NULL);
+	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (NULL);
 	j = 0;
@@ -68,14 +70,14 @@ void	fill(char **map2, int y, int x, char flood)
 	fill(map2, y, x - 1, flood);
 }
 
-int	flood_fill(int rows)
+int	flood_fill(int rows, char **argv)
 {
 	char	**map2;
 	char	flood;
 	int		x;
 	int		y;
 
-	map2 = ft_copy_map(rows);
+	map2 = ft_copy_map(rows, argv);
 	x = ft_find_px(map2);
 	y = ft_find_py(map2);
 	flood = 'F';

@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 15:33:03 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 19:15:40 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:51:07 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define WIDTH 1920
 # define HEIGHT 1280
-# define DELAY 5
+# define DELAY 8
 
 typedef struct parameters
 {
@@ -74,6 +74,7 @@ void			collectable_control(t_p **vars);
 void			rest_position(t_p **vars);
 void			ft_hook(void *param);
 void			ending_game(mlx_t *mlx, t_p *vars);
+void			ft_crossing_door(t_p *vars);
 int				ft_count_rows(char **argv);
 int				ft_create_map(t_p **vars, int rows, char **argv);
 int				ft_is_rectangular(char **map);
@@ -82,8 +83,8 @@ int				ft_allowed_elements(char **map);
 int				*ft_count_elements(char **map);
 int				ft_number_of_elements(char **map);
 void			fill(char **map2, int x, int y, char flood);
-int				flood_fill(int rows);
-int				map_checker(t_p **vars, int rows);
+int				flood_fill(int rows, char **argv);
+int				map_checker(t_p **vars, int rows, char **argv);
 void			ft_free_map(char **map);
 t_map			map_init(t_p *vars, char **argv);
 void			ft_images_to_window(t_p **vars, t_map map_coor);

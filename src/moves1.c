@@ -6,7 +6,7 @@
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:24:40 by pabromer          #+#    #+#             */
-/*   Updated: 2024/10/04 13:03:00 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:20:56 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	move_up(t_p **vars)
 	else
 		(*vars)->speed--;
 	collectable_control(vars);
+	ft_crossing_door(*vars);
 }
 
 void	move_down(t_p **vars)
@@ -71,6 +72,7 @@ void	move_down(t_p **vars)
 	else
 		(*vars)->speed--;
 	collectable_control(vars);
+	ft_crossing_door(*vars);
 }
 
 void	move_left(t_p **vars)
@@ -96,6 +98,7 @@ void	move_left(t_p **vars)
 	else
 		(*vars)->speed--;
 	collectable_control(vars);
+	ft_crossing_door(*vars);
 }
 
 void	move_right(t_p **vars)
@@ -121,4 +124,5 @@ void	move_right(t_p **vars)
 	else
 		(*vars)->speed--;
 	collectable_control(vars);
+	ft_crossing_door(*vars);
 }
