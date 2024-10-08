@@ -1,23 +1,23 @@
-#42 - so_long
+# 42 - so_long
 
-##What is this project's goal?
+## What is this project's goal?
 
-##Preparation:
+## Preparation:
 
-###What do yo need to start?
+### What do yo need to start?
 
-###Where you can take these things?
+### Where you can take these things?
 
-###Interesting tools to prepare the project.
+### Interesting tools to prepare the project.
 
-##Lets to code:
+## Lets to code:
 
-###How can you divide the project?
+### How can you divide the project?
 
-###Checking the map:
+### Checking the map:
 
-###Creating a valid map:
+### Creating a valid map:
 
-###Init MLX42:
+### Init MLX42:
 
-###Combine everything:
+### Combine everything:
