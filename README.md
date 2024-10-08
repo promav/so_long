@@ -18,6 +18,14 @@
 
 ### Creating a valid map:
 
+### Find elements coordinates:
+
 ### Init MLX42:
 
-### Combine everything:
+### Moving Character
+
+### Eating collecatables:
+
+### Croosing the door:
+
+### Ending the game:
